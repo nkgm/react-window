@@ -196,7 +196,7 @@ export default function createListComponent({
       return null;
     }
 
-    scrollTo(scrollOffset: number): void {
+    scrollTo(scrollOffset: number, scrollUpdateWasRequested: boolean = true): void {
       scrollOffset = Math.max(0, scrollOffset);
 
       this.setState(prevState => {
@@ -207,12 +207,12 @@ export default function createListComponent({
           scrollDirection:
             prevState.scrollOffset < scrollOffset ? 'forward' : 'backward',
           scrollOffset: scrollOffset,
-          scrollUpdateWasRequested: true,
+          scrollUpdateWasRequested,
         };
       }, this._resetIsScrollingDebounced);
     }
 
-    scrollToItem(index: number, align: ScrollToAlign = 'auto'): void {
+    scrollToItem(index: number, align: ScrollToAlign = 'auto', scrollUpdateWasRequested: boolean = true): void {
       const { itemCount } = this.props;
       const { scrollOffset } = this.state;
 
